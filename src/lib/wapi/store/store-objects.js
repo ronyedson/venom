@@ -456,12 +456,14 @@ export const storeObjects = [
   },
   {
     id: 'checkNumberBeta',
-    conditions: (module) =>
-      module.default &&
-      typeof module.default.toString === 'function' &&
-      module.default.toString().includes('Should not reach queryExists MD')
-        ? module.default
-        : null,
+    conditions: (module) => {
+      let func = module.queryExists || module.default
+      return (func && 
+      typeof func.toString === 'function' &&
+      func.toString().includes('Should not reach queryExists MD'))
+        ? func
+        : null
+    }
   },
   {
     id: 'checkNumber',
